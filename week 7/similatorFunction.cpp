@@ -5,150 +5,113 @@ using namespace std;
 
 //Declare your function....
 
-void printWelcome();                
+void printWelcome();
 void printStats(int health, int attack);
-int choice();
+void printMenu();
+int getChoice();
 int calculateDamage(int attack, int defense);
-bool isCritcalHit(); 
+bool isCriticalHit();
 int getValidChoice();
 void bewareEnemies(int round);
-void recoverHealth(int playerHealth);
-enum GameState {PLAYING, WON, LOSE, QUIT };
-GameState state = PLAYING;
-enum GameState Checkmate(int blue, GameState state);
+void recoverHealth(int &playerHealth);
+GameState checkGameState(int choice, GameState state);
 
+enum GameState {PLAYING, WON, LOSE, QUIT};
+GameState state = PLAYING;
 
 int main(){
-    int health = 1, attack = 10, defense = 5, path, playerHealth = 50;
-
-    printWelcome();             // calling function
-    printStats(health, attack);     // when calling fuction you dont add data type(void)
-    path = choice();
-    cout << "Damage is:" << calculateDamage(attack, defense) << endl;
-    cout << "Damage is:" << calculateDamage(45, 10) << endl;
-    cout << "Damage is:" << calculateDamage(41, 13) << endl;
-    cout << "Damage is:" << calculateDamage(1, 9) << endl;
-
-    if(isCritcalHit()){
-        cout << "That was a critacal hit!";
+    int health = 1, attack = 10, defense = 5, playerHealth = 50;
+    
+    srand(time(0));
+    
+    printWelcome();
+    printStats(health, attack);
+    
+    int path = getChoice();
+    
+    cout << "Damage is: " << calculateDamage(attack, defense) << endl;
+    cout << "Damage is: " << calculateDamage(45, 10) << endl;
+    cout << "Damage is: " << calculateDamage(41, 13) << endl;
+    cout << "Damage is: " << calculateDamage(1, 9) << endl;
+    
+    if(isCriticalHit()){
+        cout << "That was a critical hit!" << endl;
     } else{
-        cout <<"Your are okay ... for now.";
+        cout << "You are okay ... for now." << endl;
     }
-
+    
     int blue = getValidChoice();
     bewareEnemies(3);
-
+    
     cout << "Initial health: " << playerHealth << "\n";
-
-    // Call the function
     recoverHealth(playerHealth);
-
     cout << "New health: " << playerHealth << "\n";
-
-    Checkmate(blue, state);
-
-
-
-
-
-
-
-
-
+    
+    state = checkGameState(blue, state);
+    
+    return 0;
 }
 
-//Function Defining......
-void printWelcome(){                            // definite what function does // definition.....
+void printWelcome() {
     cout << "WELCOME TO THE ARENA OF DEATH\n\n";
 }
 
-void printStats(int health, int attack){
-
-    cout <<" Health: " << health << endl;
-    cout <<" Attack: " << attack << endl;
+void printStats(int health, int attack) {
+    cout << " Health: " << health << endl;
+    cout << " Attack: " << attack << endl;
 }
 
-int choice(){
-
-    int num;
+void printMenu() {
     cout << "\n1. Fight\n";
-    cout << "\n2. Rest\n";
-    cout << "\n3. Quit\n";
-    cout << "\nChoose your path\n";
-    cin >> num;
+    cout << "2. Rest\n";
+    cout << "3. Quit\n";
+    cout << "Choose your path: ";
+}
 
+int getChoice() {
+    int num;
+    printMenu();
+    cin >> num;
     return num;
 }
-int calculateDamage(int attack , int defense){
 
-    int damage;
-    damage = attack - (defense/2);
-
-    if (damage < 0){
-        damage = 0;
-    }
-
+int calculateDamage(int attack, int defense) {
+    int damage = attack - (defense/2);
+    if(damage < 0) damage = 0;
     return damage;
 }
 
-bool isCritcalHit(){
-    int roll = rand() %100;
-    if (roll < 20){
-        return true;
-    }
-        return false;
+bool isCriticalHit() {
+    return (rand() % 100) < 20;
 }
 
-int getValidChoice(){
+int getValidChoice() {
     int choice;
-    do{
-        cout << "\n1. Fight\n";
-        cout << "\n2. Rest\n";
-        cout << "\n3. Quit\n";
-        cout << "\nChoose your path\n";
+    do {
+        printMenu();
         cin >> choice;
-
-    } while(choice != 1  && choice != 2  && choice != 3);
-    
+    } while(choice != 1 && choice != 2 && choice != 3);
     return choice;
 }
 
-void bewareEnemies(int round){
+void bewareEnemies(int round) {
     cout << "\nBeware Enemies approaching!\n";
-    for (int row = 0; row < round ; row++){
+    for(int row = 0; row < round; row++){
         for(int col = 0; col < 5; col++){
             cout << "#";
         }
-            cout << endl;
+        cout << endl;
     }
 }
 
-
-
-void recoverHealth(int playerHealth) {     
-
+void recoverHealth(int &playerHealth) {
     playerHealth += 2;
-    cout <<"You've recovered 2 health.\n";
-
+    cout << "You've recovered 2 health.\n";
 }
 
-enum GameState Checkmate(int blue, GameState state){
-    if (blue == 3){
-        state = QUIT;
-        
-
-        return state;
+GameState checkGameState(int choice, GameState state) {
+    if(choice == 3){
+        return QUIT;
     }
-    
-} 
-
-
-                
-
-    
-    
-
-
-
-
-   
+    return state;
+}
