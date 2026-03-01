@@ -1,4 +1,4 @@
-/*
+/* nimo
     Spring Break Zombie Survival Helper
     -----------------------------------
     Topic: User-Defined Functions (Week 7–8)
@@ -17,10 +17,10 @@
 
       This program helps the user estimate:
         - average zombies seen per day      //  Done
-        - danger rating based on zombie sightings //Brady
-        - total zombies over several days // Total zombies
-        - a rough "survival chance" percentage // nimo
-        - bool ShouldRun(int zombiesBehindYou) // nimo 
+        - danger rating based on zombie sightings //done
+        - total zombies over several days // Total zombies. done
+        - a rough "survival chance" percentage // done
+        - bool ShouldRun(int zombiesBehindYou) // done
         - void Warn() → prints a dramatic message done 
 
         // 
