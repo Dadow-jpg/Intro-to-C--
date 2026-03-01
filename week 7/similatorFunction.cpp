@@ -14,9 +14,9 @@ bool isCriticalHit();
 int getValidChoice();
 void bewareEnemies(int round);
 void recoverHealth(int &playerHealth);
+enum GameState {PLAYING, WON, LOSE, QUIT};
 GameState checkGameState(int choice, GameState state);
 
-enum GameState {PLAYING, WON, LOSE, QUIT};
 GameState state = PLAYING;
 
 int main(){
