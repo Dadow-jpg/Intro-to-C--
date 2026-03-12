@@ -3,7 +3,7 @@
 #include<ctime>
 using namespace std;
 
-//Declare your function....
+//Declare your function....n
 
 void printWelcome();
 void printStats(int health, int attack);
